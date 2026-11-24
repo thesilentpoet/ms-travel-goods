@@ -1,0 +1,1702 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MS TRAVEL &amp; GOODS | Safe • Simple • Reliable — Tenkasi &amp; Tamil Nadu</title>
+  <meta name="description" content="Executive 4-Seater AC Cab (Suzuki WagonR) & Commercial Goods Carrier (Mahindra Bolero Pickup) booking in Tenkasi District & Tamil Nadu. Instant upfront fare estimate and WhatsApp dispatch." />
+
+  <!-- Google Fonts: Plus Jakarta Sans, Inter & Noto Sans Tamil -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Tamil:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'Noto Sans Tamil', 'system-ui', '-apple-system', 'sans-serif'],
+            display: ['Plus Jakarta Sans', 'Noto Sans Tamil', 'Inter', 'sans-serif'],
+          },
+          colors: {
+            navy: {
+              800: '#1E293B',
+              900: '#111827',
+              950: '#090D16',
+            },
+            amberfleet: {
+              50: '#FFFBEB',
+              100: '#FEF3C7',
+              200: '#FDE68A',
+              400: '#FBBF24',
+              500: '#F59E0B',
+              600: '#D97706',
+              700: '#B45309',
+            }
+          }
+        }
+      }
+    };
+  </script>
+
+  <!-- Leaflet CSS & JS (v1.9.4) -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+
+  <style>
+    .tabular-nums {
+      font-variant-numeric: tabular-nums;
+    }
+    #map {
+      height: 360px;
+      width: 100%;
+      z-index: 1;
+    }
+    @media (min-width: 1024px) {
+      #map {
+        height: 430px;
+      }
+    }
+    .leaflet-container {
+      font-family: 'Inter', 'Noto Sans Tamil', sans-serif !important;
+    }
+    .fleet-pin {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 34px;
+      height: 34px;
+      border-radius: 9999px;
+      font-weight: 800;
+      font-size: 13px;
+      border: 3px solid #ffffff;
+      box-shadow: 0 6px 16px rgba(17, 24, 39, 0.35);
+    }
+    .suggestions-scroll::-webkit-scrollbar {
+      width: 6px;
+    }
+    .suggestions-scroll::-webkit-scrollbar-thumb {
+      background-color: #CBD5E1;
+      border-radius: 9999px;
+    }
+  </style>
+</head>
+<body class="bg-[#F8FAFC] text-[#111827] font-sans antialiased selection:bg-amberfleet-200 selection:text-navy-900 pb-20 lg:pb-0">
+
+  <!-- Toast Notification Stack -->
+  <div id="toast-stack" class="fixed top-20 right-4 z-50 flex flex-col gap-2 max-w-sm w-full pointer-events-none px-4 sm:px-0"></div>
+
+  <!-- Sticky Top Navigation Bar -->
+  <header class="sticky top-0 z-40 bg-navy-900/95 backdrop-blur-md text-white border-b border-slate-800 shadow-lg">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 sm:h-[72px] flex items-center justify-between gap-2 sm:gap-4">
+      <!-- Brand Logo & Tagline -->
+      <a href="#" class="flex items-center gap-2.5 sm:gap-3 min-w-0 group focus:outline-none">
+        <div class="w-10 h-10 sm:w-11 sm:h-11 shrink-0 rounded-xl bg-gradient-to-br from-amberfleet-400 to-amberfleet-600 text-navy-900 flex items-center justify-center font-display font-extrabold text-lg sm:text-xl shadow-md group-hover:scale-105 transition-transform">
+          MS
+        </div>
+        <!-- Respectful Vector Murugan Emblem (Stylized Vel & Peacock Plume Motif) -->
+        <div
+          aria-hidden="true"
+          title="Murugan Emblem"
+          class="w-9 h-9 sm:w-10 sm:h-10 shrink-0 rounded-xl bg-navy-800/90 border border-amberfleet-500/35 flex items-center justify-center text-amberfleet-400 shadow-xs group-hover:border-amberfleet-400 transition-colors">
+          <svg class="w-5 h-5 sm:w-6 sm:h-6" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Stylized Sacred Vel Blade -->
+            <path d="M14 2.5C15.6 6.2 16.5 9.2 16.5 11.4C16.5 12.6 15.5 13.5 14 13.5C12.5 13.5 11.5 12.6 11.5 11.4C11.5 9.2 12.4 6.2 14 2.5Z" fill="currentColor" />
+            <!-- Vel Shaft -->
+            <path d="M14 13.5V24.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+            <!-- Subtle Peacock Plume / Arch Accent -->
+            <path d="M8.5 18.5C10.2 16.8 12 16.2 14 16.2C16 16.2 17.8 16.8 19.5 18.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" opacity="0.85" />
+            <circle cx="14" cy="19.5" r="1.4" fill="currentColor" opacity="0.9" />
+          </svg>
+        </div>
+        <div class="min-w-0 leading-tight">
+          <div class="font-display font-extrabold text-sm sm:text-lg tracking-tight text-white truncate">
+            MS TRAVEL &amp; GOODS
+          </div>
+          <div class="text-[11px] sm:text-xs font-semibold text-amberfleet-400 truncate" data-i18n="brandTagline">
+            Safe • Simple • Reliable
+          </div>
+        </div>
+      </a>
+
+      <!-- Right Controls: Live Dispatch Badge + Bilingual Pill Switcher -->
+      <div class="flex items-center gap-2 sm:gap-3 shrink-0">
+        <!-- Live Availability Badge -->
+        <div class="hidden md:inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-navy-800 border border-slate-700 text-xs font-semibold text-slate-200">
+          <span class="relative flex h-2 w-2">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+          </span>
+          <span data-i18n="liveDispatchBadge">24/7 Dispatch • Tenkasi</span>
+        </div>
+
+        <!-- Sleek Segmented Pill Switcher: EN | தமிழ் -->
+        <div role="group" aria-label="Language Switcher" class="inline-flex items-center p-1 rounded-full bg-navy-800 border border-slate-700">
+          <button
+            type="button"
+            id="lang-en-btn"
+            onclick="setLanguage('en')"
+            class="px-3 py-1.5 rounded-full text-xs font-extrabold transition-all cursor-pointer bg-amberfleet-500 text-navy-900 shadow-xs">
+            EN
+          </button>
+          <button
+            type="button"
+            id="lang-ta-btn"
+            onclick="setLanguage('ta')"
+            class="px-3 py-1.5 rounded-full text-xs font-extrabold transition-all cursor-pointer text-slate-300 hover:text-white">
+            தமிழ்
+          </button>
+        </div>
+
+        <!-- Quick Jump CTA (Desktop) -->
+        <a
+          href="#booking-section"
+          class="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-amberfleet-500 hover:bg-amberfleet-600 text-navy-900 font-display font-extrabold text-xs sm:text-sm shadow-sm transition-colors">
+          <span data-i18n="headerCta">Book Ride</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Executive Commercial Hero Banner -->
+  <section class="relative bg-gradient-to-br from-navy-900 via-navy-800 to-navy-950 text-white border-b-4 border-amberfleet-500 overflow-hidden">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-12 relative z-10">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        <!-- Left Copy -->
+        <div class="lg:col-span-7 space-y-4">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amberfleet-500/15 border border-amberfleet-500/35 text-amberfleet-400 text-xs font-bold">
+            <span class="w-1.5 h-1.5 rounded-full bg-amberfleet-400"></span>
+            <span data-i18n="heroBadge">Tenkasi District &amp; All Over Tamil Nadu</span>
+          </div>
+
+          <h1 class="font-display font-extrabold text-2xl sm:text-4xl lg:text-[40px] leading-tight tracking-tight text-white" data-i18n="heroHeadline">
+            Executive AC Cab &amp; Commercial Pickup Booking
+          </h1>
+
+          <p class="text-sm sm:text-base text-slate-300 leading-relaxed max-w-2xl" data-i18n="heroDescription">
+            Travel comfortably in a 4-Seater AC Suzuki WagonR or transport goods reliably in a heavy-duty Mahindra Bolero Pickup. Calculate your upfront route fare in seconds and dispatch directly via WhatsApp.
+          </p>
+
+          <!-- Concealed Dual WhatsApp Quick Inquiry Buttons -->
+          <div class="pt-1 flex flex-wrap items-center gap-3">
+            <button
+              type="button"
+              onclick="openQuickWhatsApp('desk1')"
+              class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs sm:text-sm font-bold shadow-sm transition-all cursor-pointer">
+              <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M20.52 3.48A11.86 11.86 0 0012.07 0C5.5 0 .16 5.34.16 11.91c0 2.1.55 4.15 1.59 5.95L0 24l6.33-1.66a11.87 11.87 0 005.74 1.46h.01c6.57 0 11.91-5.34 11.91-11.91 0-3.18-1.24-6.17-3.47-8.41zM12.08 21.8h-.01a9.87 9.87 0 01-5.03-1.38l-.36-.21-3.76.99 1-3.66-.24-.38a9.86 9.86 0 01-1.51-5.25c0-5.45 4.44-9.89 9.9-9.89 2.64 0 5.13 1.03 7 2.9a9.82 9.82 0 012.89 7c0 5.46-4.44 9.88-9.88 9.88zm5.43-7.41c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.16-.17.2-.35.22-.64.07-.3-.15-1.26-.46-2.39-1.48-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48 0 1.46 1.07 2.88 1.21 3.07.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.41-.07-.13-.27-.2-.57-.35z"/></svg>
+              <span data-i18n="waDesk1Label">WhatsApp Desk 1</span>
+            </button>
+
+            <button
+              type="button"
+              onclick="openQuickWhatsApp('desk2')"
+              class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-navy-800 hover:bg-slate-700 text-white border border-slate-600 text-xs sm:text-sm font-bold transition-all cursor-pointer">
+              <svg class="w-4 h-4 fill-current text-emerald-400" viewBox="0 0 24 24"><path d="M20.52 3.48A11.86 11.86 0 0012.07 0C5.5 0 .16 5.34.16 11.91c0 2.1.55 4.15 1.59 5.95L0 24l6.33-1.66a11.87 11.87 0 005.74 1.46h.01c6.57 0 11.91-5.34 11.91-11.91 0-3.18-1.24-6.17-3.47-8.41zM12.08 21.8h-.01a9.87 9.87 0 01-5.03-1.38l-.36-.21-3.76.99 1-3.66-.24-.38a9.86 9.86 0 01-1.51-5.25c0-5.45 4.44-9.89 9.9-9.89 2.64 0 5.13 1.03 7 2.9a9.82 9.82 0 012.89 7c0 5.46-4.44 9.88-9.88 9.88zm5.43-7.41c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.16-.17.2-.35.22-.64.07-.3-.15-1.26-.46-2.39-1.48-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48 0 1.46 1.07 2.88 1.21 3.07.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.41-.07-.13-.27-.2-.57-.35z"/></svg>
+              <span data-i18n="waDesk2Label">WhatsApp Desk 2</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Right 4 Trust Pillars -->
+        <div class="lg:col-span-5 grid grid-cols-2 gap-3">
+          <div class="rounded-2xl bg-navy-800/90 border border-slate-700/80 p-4">
+            <div class="w-8 h-8 rounded-lg bg-amberfleet-500/20 text-amberfleet-400 flex items-center justify-center font-bold mb-2">✦</div>
+            <div class="text-xs sm:text-sm font-bold text-white" data-i18n="trust1Title">Clean Well-Maintained Vehicles</div>
+            <div class="text-[11px] text-slate-400 mt-1" data-i18n="trust1Desc">Sanitized AC cabs &amp; inspected carriers</div>
+          </div>
+          <div class="rounded-2xl bg-navy-800/90 border border-slate-700/80 p-4">
+            <div class="w-8 h-8 rounded-lg bg-amberfleet-500/20 text-amberfleet-400 flex items-center justify-center font-bold mb-2">✓</div>
+            <div class="text-xs sm:text-sm font-bold text-white" data-i18n="trust2Title">Verified Local Drivers</div>
+            <div class="text-[11px] text-slate-400 mt-1" data-i18n="trust2Desc">Experienced Tenkasi &amp; TN route experts</div>
+          </div>
+          <div class="rounded-2xl bg-navy-800/90 border border-slate-700/80 p-4">
+            <div class="w-8 h-8 rounded-lg bg-amberfleet-500/20 text-amberfleet-400 flex items-center justify-center font-bold mb-2">₹</div>
+            <div class="text-xs sm:text-sm font-bold text-white" data-i18n="trust3Title">Transparent Upfront Pricing</div>
+            <div class="text-[11px] text-slate-400 mt-1" data-i18n="trust3Desc">Clear per-km slabs with zero surprises</div>
+          </div>
+          <div class="rounded-2xl bg-navy-800/90 border border-slate-700/80 p-4">
+            <div class="w-8 h-8 rounded-lg bg-amberfleet-500/20 text-amberfleet-400 flex items-center justify-center font-bold mb-2">⚡</div>
+            <div class="text-xs sm:text-sm font-bold text-white" data-i18n="trust4Title">24/7 Tenkasi Support</div>
+            <div class="text-[11px] text-slate-400 mt-1" data-i18n="trust4Desc">Fast WhatsApp dispatch around the clock</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Booking Workspace -->
+  <main id="booking-section" class="max-w-6xl mx-auto px-4 sm:px-6 py-8 space-y-8">
+
+    <!-- STEP 1: Fleet Vehicle Selection -->
+    <section class="bg-white rounded-2xl border border-[#E2E8F0] shadow-xs p-5 sm:p-7">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-5">
+        <div>
+          <span class="inline-flex items-center px-2.5 py-0.5 rounded-md bg-amberfleet-100 text-amberfleet-700 font-extrabold text-[11px] uppercase tracking-wider mb-1.5" data-i18n="step1Tag">
+            Step 1 • Fleet Selection
+          </span>
+          <h2 class="font-display font-extrabold text-lg sm:text-xl text-navy-900" data-i18n="step1Heading">
+            Choose Your Vehicle Category
+          </h2>
+        </div>
+        <div id="active-tier-banner" class="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-amberfleet-50 border border-amberfleet-200 text-xs font-bold text-navy-900">
+          <span class="w-2 h-2 rounded-full bg-amberfleet-500"></span>
+          <span id="active-tier-banner-text" data-i18n="tierAppliedLocal">Local Tariff Applied</span>
+        </div>
+      </div>
+
+      <!-- Two Executive Fleet Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+        <!-- Fleet 1: Suzuki WagonR -->
+        <button
+          type="button"
+          id="fleet-card-wagonr"
+          onclick="selectVehicle('wagonr')"
+          class="text-left rounded-2xl border-2 border-amberfleet-500 bg-amberfleet-50/40 p-5 sm:p-6 transition-all cursor-pointer shadow-sm focus:outline-none">
+          <div class="flex items-start justify-between gap-3">
+            <div class="flex items-center gap-3">
+              <div class="w-12 h-12 rounded-xl bg-navy-900 text-amberfleet-400 flex items-center justify-center shrink-0">
+                <!-- Clean Car SVG Icon -->
+                <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M5 11l1.5-4.5A2 2 0 018.4 5h7.2a2 2 0 011.9 1.5L19 11m-14 0h14m-14 0a2 2 0 00-2 2v3a1 1 0 001 1h1a2 2 0 104 0h6a2 2 0 104 0h1a1 1 0 001-1v-3a2 2 0 00-2-2" />
+                </svg>
+              </div>
+              <div>
+                <span class="inline-block px-2 py-0.5 rounded-md bg-navy-900 text-white text-[10px] font-extrabold uppercase tracking-wider" data-i18n="wagonrBadge">
+                  4-Seater AC • Passenger Travel
+                </span>
+                <h3 class="font-display font-extrabold text-base sm:text-lg text-navy-900 mt-1" data-i18n="wagonrName">
+                  Suzuki WagonR
+                </h3>
+              </div>
+            </div>
+            <span id="check-wagonr" class="w-6 h-6 rounded-full bg-amberfleet-500 text-navy-900 flex items-center justify-center text-xs font-black shrink-0">
+              ✓
+            </span>
+          </div>
+
+          <!-- Dual Tariff Slab Box -->
+          <div class="mt-4 grid grid-cols-2 gap-2.5">
+            <div class="rounded-xl bg-white border border-slate-200 p-3">
+              <div class="text-[11px] font-bold text-slate-500" data-i18n="localSlabLabel">Local (&le; 50 km)</div>
+              <div class="text-lg font-extrabold text-navy-900 tabular-nums mt-0.5">
+                ₹25 <span class="text-xs font-semibold text-slate-500" data-i18n="perKmUnit">/ km</span>
+              </div>
+            </div>
+            <div class="rounded-xl bg-white border border-slate-200 p-3">
+              <div class="text-[11px] font-bold text-slate-500" data-i18n="outstationSlabLabel">Outstation (&gt; 50 km)</div>
+              <div class="text-lg font-extrabold text-navy-900 tabular-nums mt-0.5">
+                ₹15 <span class="text-xs font-semibold text-slate-500" data-i18n="perKmUnit">/ km</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-3.5 pt-3 border-t border-slate-200/80 flex items-center justify-between text-xs font-semibold text-slate-600">
+            <span data-i18n="wagonrWaitingNote">Waiting: ₹80/hour waiting charge applicable</span>
+            <span class="text-amberfleet-700 font-extrabold" data-i18n="acComfortTag">AC Comfort</span>
+          </div>
+        </button>
+
+        <!-- Fleet 2: Mahindra Bolero Pickup -->
+        <button
+          type="button"
+          id="fleet-card-bolero"
+          onclick="selectVehicle('bolero')"
+          class="text-left rounded-2xl border-2 border-slate-200 bg-white hover:border-amberfleet-400 p-5 sm:p-6 transition-all cursor-pointer focus:outline-none">
+          <div class="flex items-start justify-between gap-3">
+            <div class="flex items-center gap-3">
+              <div class="w-12 h-12 rounded-xl bg-amberfleet-100 text-amberfleet-700 flex items-center justify-center shrink-0">
+                <!-- Clean Pickup Truck SVG Icon -->
+                <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M3 13V8a1 1 0 011-1h9v6m0 0h7l1.5 2.5V17a1 1 0 01-1 1h-1a2 2 0 11-4 0H9a2 2 0 11-4 0H4a1 1 0 01-1-1v-4h10zm0-6h3.5L19 10.5" />
+                </svg>
+              </div>
+              <div>
+                <span class="inline-block px-2 py-0.5 rounded-md bg-amberfleet-100 text-amberfleet-700 text-[10px] font-extrabold uppercase tracking-wider" data-i18n="boleroBadge">
+                  Commercial Goods &amp; Luggage
+                </span>
+                <h3 class="font-display font-extrabold text-base sm:text-lg text-navy-900 mt-1" data-i18n="boleroName">
+                  Mahindra Bolero Pickup
+                </h3>
+              </div>
+            </div>
+            <span id="check-bolero" class="w-6 h-6 rounded-full border-2 border-slate-300 text-transparent flex items-center justify-center text-xs font-black shrink-0">
+              ✓
+            </span>
+          </div>
+
+          <!-- Dual Tariff Slab Box -->
+          <div class="mt-4 grid grid-cols-2 gap-2.5">
+            <div class="rounded-xl bg-slate-50 border border-slate-200 p-3">
+              <div class="text-[11px] font-bold text-slate-500" data-i18n="localSlabLabel">Local (&le; 50 km)</div>
+              <div class="text-sm sm:text-base font-extrabold text-navy-900 tabular-nums mt-0.5" data-i18n="boleroLocalRate">
+                ₹300 Base + ₹30<span class="text-xs font-semibold text-slate-500">/km</span>
+              </div>
+            </div>
+            <div class="rounded-xl bg-slate-50 border border-slate-200 p-3">
+              <div class="text-[11px] font-bold text-slate-500" data-i18n="outstationSlabLabel">Outstation (&gt; 50 km)</div>
+              <div class="text-lg font-extrabold text-navy-900 tabular-nums mt-0.5">
+                ₹20 <span class="text-xs font-semibold text-slate-500" data-i18n="perKmUnit">/ km</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-3.5 pt-3 border-t border-slate-200/80 flex items-center justify-between text-xs font-semibold text-slate-600">
+            <span data-i18n="boleroNote">Heavy-duty open cargo &amp; shifting</span>
+            <span class="text-navy-800 font-extrabold" data-i18n="noBaseOutstationTag">No base fare outstation</span>
+          </div>
+        </button>
+      </div>
+
+      <!-- Statutory Footnote -->
+      <div class="mt-4 px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-600 font-medium flex items-center gap-2">
+        <span class="text-amberfleet-600 font-black">ⓘ</span>
+        <span data-i18n="tollFootnote">Toll, parking, and interstate permit charges (if any) are extra at actuals.</span>
+      </div>
+    </section>
+
+    <!-- STEP 2: Interactive Map & Route Calculator -->
+    <section id="route-section" class="bg-white rounded-2xl border border-[#E2E8F0] shadow-xs p-5 sm:p-7">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-5">
+        <div>
+          <span class="inline-flex items-center px-2.5 py-0.5 rounded-md bg-amberfleet-100 text-amberfleet-700 font-extrabold text-[11px] uppercase tracking-wider mb-1.5" data-i18n="step2Tag">
+            Step 2 • Route &amp; Distance
+          </span>
+          <h2 class="font-display font-extrabold text-lg sm:text-xl text-navy-900" data-i18n="step2Heading">
+            Interactive Route &amp; Fare Calculator
+          </h2>
+        </div>
+
+        <!-- Trip Type Segmented Selector -->
+        <div class="inline-flex p-1 rounded-xl bg-slate-100 border border-slate-200 self-start sm:self-auto">
+          <button
+            type="button"
+            id="trip-oneway-btn"
+            onclick="setTripType('oneway')"
+            class="px-3.5 py-2 rounded-lg text-xs font-extrabold transition-all cursor-pointer bg-navy-900 text-white shadow-2xs">
+            <span data-i18n="tripOneWay">One Way Drop</span>
+          </button>
+          <button
+            type="button"
+            id="trip-roundtrip-btn"
+            onclick="setTripType('roundtrip')"
+            class="px-3.5 py-2 rounded-lg text-xs font-extrabold transition-all cursor-pointer text-slate-700 hover:text-navy-900">
+            <span data-i18n="tripRoundTrip">Round Trip</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+        <!-- Left Controls: Pickup/Drop Inputs + Quick-Select Hubs -->
+        <div class="lg:col-span-5 space-y-4">
+          <!-- Pickup Input -->
+          <div class="relative">
+            <label for="pickup-input" class="block text-xs font-extrabold text-navy-800 uppercase tracking-wide mb-1.5" data-i18n="pickupLabel">
+              Pickup Location
+            </label>
+            <div class="flex gap-2">
+              <div class="relative flex-1">
+                <input
+                  id="pickup-input"
+                  type="text"
+                  autocomplete="off"
+                  data-i18n-placeholder="pickupPlaceholder"
+                  placeholder="Search town, bus stand or landmark..."
+                  class="w-full rounded-xl border border-slate-300 bg-white pl-3.5 pr-9 py-3 text-sm font-medium text-navy-900 placeholder:text-slate-400 focus:border-amberfleet-500 focus:ring-2 focus:ring-amberfleet-500/20 focus:outline-none" />
+                <button
+                  type="button"
+                  id="clear-pickup-btn"
+                  onclick="clearPoint('pickup')"
+                  class="hidden absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-navy-900 p-1 text-xs font-bold cursor-pointer"
+                  aria-label="Clear Pickup">✕</button>
+              </div>
+              <button
+                type="button"
+                onclick="detectUserGPS()"
+                class="shrink-0 inline-flex items-center gap-1.5 px-3.5 py-3 rounded-xl bg-navy-900 hover:bg-navy-800 text-amberfleet-400 text-xs font-extrabold transition-colors cursor-pointer">
+                <span>📍</span>
+                <span data-i18n="useGpsBtn">Use My GPS</span>
+              </button>
+            </div>
+            <div id="pickup-dropdown" class="suggestions-scroll hidden absolute left-0 right-0 mt-1 bg-white border border-slate-200 rounded-xl shadow-xl max-h-56 overflow-y-auto z-30"></div>
+          </div>
+
+          <!-- Swap Row -->
+          <div class="flex items-center justify-between">
+            <span class="text-[11px] font-medium text-slate-500" data-i18n="mapClickHint">
+              Click directly on map to place pins
+            </span>
+            <button
+              type="button"
+              onclick="swapPoints()"
+              class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-amberfleet-50 hover:bg-amberfleet-100 text-navy-900 border border-amberfleet-300 text-xs font-extrabold transition-colors cursor-pointer">
+              <span>⇅</span>
+              <span data-i18n="swapBtn">Swap</span>
+            </button>
+          </div>
+
+          <!-- Drop Input -->
+          <div class="relative">
+            <label for="drop-input" class="block text-xs font-extrabold text-navy-800 uppercase tracking-wide mb-1.5" data-i18n="dropLabel">
+              Drop Location
+            </label>
+            <div class="relative">
+              <input
+                id="drop-input"
+                type="text"
+                autocomplete="off"
+                data-i18n-placeholder="dropPlaceholder"
+                placeholder="Search destination town or landmark..."
+                class="w-full rounded-xl border border-slate-300 bg-white pl-3.5 pr-9 py-3 text-sm font-medium text-navy-900 placeholder:text-slate-400 focus:border-amberfleet-500 focus:ring-2 focus:ring-amberfleet-500/20 focus:outline-none" />
+              <button
+                type="button"
+                id="clear-drop-btn"
+                onclick="clearPoint('drop')"
+                class="hidden absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-navy-900 p-1 text-xs font-bold cursor-pointer"
+                aria-label="Clear Drop">✕</button>
+            </div>
+            <div id="drop-dropdown" class="suggestions-scroll hidden absolute left-0 right-0 mt-1 bg-white border border-slate-200 rounded-xl shadow-xl max-h-56 overflow-y-auto z-30"></div>
+          </div>
+
+          <!-- Quick-Select Popular Hubs Chips -->
+          <div class="pt-1">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-extrabold text-navy-800 uppercase tracking-wide" data-i18n="popularHubsLabel">
+                Quick-Select Popular Hubs
+              </span>
+              <span class="text-[11px] font-semibold text-amberfleet-700" id="hub-target-indicator" data-i18n="setsPickupHint">
+                Sets Pickup
+              </span>
+            </div>
+            <div class="flex flex-wrap gap-1.5" id="popular-hubs-container">
+              <button type="button" onclick="selectPopularHub('nagaram')" class="px-2.5 py-1.5 rounded-lg bg-slate-100 hover:bg-amberfleet-100 border border-slate-200 hover:border-amberfleet-400 text-xs font-bold text-navy-800 transition-colors cursor-pointer" data-i18n="hubNagaram">Nagaram</button>
+              <button type="button" onclick="selectPopularHub('tenkasi_bus')" class="px-2.5 py-1.5 rounded-lg bg-slate-100 hover:bg-amberfleet-100 border border-slate-200 hover:border-amberfleet-400 text-xs font-bold text-navy-800 transition-colors cursor-pointer" data-i18n="hubTenkasiBus">Tenkasi New Bus Stand</button>
+              <button type="button" onclick="selectPopularHub('courtallam')" class="px-2.5 py-1.5 rounded-lg bg-slate-100 hover:bg-amberfleet-100 border border-slate-200 hover:border-amberfleet-400 text-xs font-bold text-navy-800 transition-colors cursor-pointer" data-i18n="hubCourtallam">Courtallam Main Falls</button>
+              <button type="button" onclick="selectPopularHub('shenkottai')" class="px-2.5 py-1.5 rounded-lg bg-slate-100 hover:bg-amberfleet-100 border border-slate-200 hover:border-amberfleet-400 text-xs font-bold text-navy-800 transition-colors cursor-pointer" data-i18n="hubShenkottai">Shenkottai</button>
+              <button type="button" onclick="selectPopularHub('sankarankovil')" class="px-2.5 py-1.5 rounded-lg bg-slate-100 hover:bg-amberfleet-100 border border-slate-200 hover:border-amberfleet-400 text-xs font-bold text-navy-800 transition-colors cursor-pointer" data-i18n="hubSankarankovil">Sankarankovil</button>
+              <button type="button" onclick="selectPopularHub('tirunelveli')" class="px-2.5 py-1.5 rounded-lg bg-slate-100 hover:bg-amberfleet-100 border border-slate-200 hover:border-amberfleet-400 text-xs font-bold text-navy-800 transition-colors cursor-pointer" data-i18n="hubTirunelveli">Tirunelveli</button>
+              <button type="button" onclick="selectPopularHub('madurai_airport')" class="px-2.5 py-1.5 rounded-lg bg-slate-100 hover:bg-amberfleet-100 border border-slate-200 hover:border-amberfleet-400 text-xs font-bold text-navy-800 transition-colors cursor-pointer" data-i18n="hubMaduraiAirport">Madurai Airport</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Map Panel -->
+        <div class="lg:col-span-7 space-y-2.5">
+          <!-- Interactive Map Controls Bar -->
+          <div class="flex flex-wrap items-center justify-between gap-2 p-2.5 rounded-xl bg-slate-50 border border-slate-200">
+            <div class="inline-flex rounded-lg bg-white p-1 border border-slate-200">
+              <button
+                type="button"
+                id="mode-pickup-btn"
+                onclick="setPinPlacementMode('pickup')"
+                class="px-3 py-1.5 rounded-md text-xs font-extrabold transition-colors cursor-pointer bg-amberfleet-500 text-navy-900">
+                <span data-i18n="pickupPinBtn">📍 Pickup Pin</span>
+              </button>
+              <button
+                type="button"
+                id="mode-drop-btn"
+                onclick="setPinPlacementMode('drop')"
+                class="px-3 py-1.5 rounded-md text-xs font-extrabold transition-colors cursor-pointer text-slate-600 hover:text-navy-900">
+                <span data-i18n="dropPinBtn">🏁 Drop Pin</span>
+              </button>
+            </div>
+
+            <button
+              type="button"
+              onclick="setPinAtMapCenter()"
+              class="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg bg-white hover:bg-slate-100 text-navy-900 border border-slate-300 text-xs font-extrabold transition-colors cursor-pointer">
+              <span>🎯</span>
+              <span data-i18n="setMapCenterBtn">Set at Map Center</span>
+            </button>
+          </div>
+
+          <!-- Leaflet Map Container -->
+          <div class="rounded-2xl overflow-hidden border border-slate-300 shadow-inner bg-slate-100">
+            <div id="map"></div>
+          </div>
+
+          <div class="flex items-center justify-between text-[11px] text-slate-500">
+            <span data-i18n="dragPinNote">Drag pins on map to fine-tune exact door-step location</span>
+            <span id="routing-status-label" class="font-semibold text-slate-500" data-i18n="readyStatus">Ready</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STEP 3: Customer Booking Details & Upfront Fare Summary -->
+    <section id="checkout-section" class="bg-white rounded-2xl border border-[#E2E8F0] shadow-xs p-5 sm:p-7">
+      <div class="mb-5">
+        <span class="inline-flex items-center px-2.5 py-0.5 rounded-md bg-amberfleet-100 text-amberfleet-700 font-extrabold text-[11px] uppercase tracking-wider mb-1.5" data-i18n="step3Tag">
+          Step 3 • Dispatch Confirmation
+        </span>
+        <h2 class="font-display font-extrabold text-lg sm:text-xl text-navy-900" data-i18n="step3Heading">
+          Passenger / Goods Details &amp; WhatsApp Booking
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-7 items-start">
+        <!-- Customer Input Form -->
+        <div class="lg:col-span-7 space-y-4">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label for="cust-name" class="block text-xs font-extrabold text-navy-800 uppercase tracking-wide mb-1.5">
+                <span data-i18n="custNameLabel">Customer Name</span> <span class="text-red-600">*</span>
+              </label>
+              <input
+                id="cust-name"
+                type="text"
+                data-i18n-placeholder="custNamePlaceholder"
+                placeholder="Enter your full name"
+                class="w-full rounded-xl border border-slate-300 bg-white px-3.5 py-3 text-sm font-medium text-navy-900 placeholder:text-slate-400 focus:border-amberfleet-500 focus:ring-2 focus:ring-amberfleet-500/20 focus:outline-none" />
+            </div>
+
+            <div>
+              <label for="cust-mobile" class="block text-xs font-extrabold text-navy-800 uppercase tracking-wide mb-1.5">
+                <span data-i18n="custMobileLabel">10-Digit Mobile Number</span> <span class="text-red-600">*</span>
+              </label>
+              <input
+                id="cust-mobile"
+                type="tel"
+                inputmode="numeric"
+                maxlength="10"
+                data-i18n-placeholder="custMobilePlaceholder"
+                placeholder="e.g. 9876543210"
+                oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 10)"
+                class="w-full rounded-xl border border-slate-300 bg-white px-3.5 py-3 text-sm font-medium text-navy-900 tabular-nums placeholder:text-slate-400 focus:border-amberfleet-500 focus:ring-2 focus:ring-amberfleet-500/20 focus:outline-none" />
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label for="travel-date" class="block text-xs font-extrabold text-navy-800 uppercase tracking-wide mb-1.5">
+                <span data-i18n="travelDateLabel">Travel Date</span> <span class="text-red-600">*</span>
+              </label>
+              <input
+                id="travel-date"
+                type="date"
+                class="w-full rounded-xl border border-slate-300 bg-white px-3.5 py-3 text-sm font-medium text-navy-900 tabular-nums focus:border-amberfleet-500 focus:ring-2 focus:ring-amberfleet-500/20 focus:outline-none" />
+            </div>
+
+            <div>
+              <label for="pickup-time" class="block text-xs font-extrabold text-navy-800 uppercase tracking-wide mb-1.5">
+                <span data-i18n="pickupTimeLabel">Pickup Time</span> <span class="text-red-600">*</span>
+              </label>
+              <input
+                id="pickup-time"
+                type="time"
+                class="w-full rounded-xl border border-slate-300 bg-white px-3.5 py-3 text-sm font-medium text-navy-900 tabular-nums focus:border-amberfleet-500 focus:ring-2 focus:ring-amberfleet-500/20 focus:outline-none" />
+            </div>
+          </div>
+
+          <div>
+            <label for="trip-notes" class="block text-xs font-extrabold text-navy-800 uppercase tracking-wide mb-1.5">
+              <span data-i18n="notesLabel">Cargo / Trip Notes</span> <span class="text-slate-400 font-normal" data-i18n="optionalLabel">(Optional)</span>
+            </label>
+            <textarea
+              id="trip-notes"
+              rows="2"
+              data-i18n-placeholder="notesPlaceholder"
+              placeholder="e.g., 4 passengers with luggage, home shifting items, landmark details..."
+              class="w-full rounded-xl border border-slate-300 bg-white px-3.5 py-2.5 text-sm font-medium text-navy-900 placeholder:text-slate-400 focus:border-amberfleet-500 focus:ring-2 focus:ring-amberfleet-500/20 focus:outline-none"></textarea>
+          </div>
+        </div>
+
+        <!-- Clean Upfront Fare Summary Card (Zero Formulas or 2x Tags Exposed) -->
+        <div class="lg:col-span-5">
+          <div class="rounded-2xl border-2 border-navy-900 bg-slate-50 p-5 space-y-4 shadow-sm">
+            <div class="flex items-center justify-between border-b border-slate-200 pb-3">
+              <span class="font-display font-extrabold text-xs uppercase tracking-wider text-navy-900" data-i18n="fareSummaryHeader">
+                Fare Summary
+              </span>
+              <span id="summary-tariff-badge" class="px-2.5 py-1 rounded-lg bg-amberfleet-400 text-navy-900 text-xs font-extrabold" data-i18n="tierAppliedLocal">
+                Local Tariff Applied
+              </span>
+            </div>
+
+            <!-- Clean Customer Line Items -->
+            <div class="space-y-2.5 text-sm">
+              <div class="flex justify-between gap-3">
+                <span class="text-slate-500 font-medium" data-i18n="sumVehicle">Selected Vehicle</span>
+                <span id="sum-vehicle-val" class="font-extrabold text-navy-900 text-right">Suzuki WagonR</span>
+              </div>
+              <div class="flex justify-between gap-3">
+                <span class="text-slate-500 font-medium" data-i18n="sumTripType">Trip Type</span>
+                <span id="sum-triptype-val" class="font-bold text-navy-900">One Way Drop</span>
+              </div>
+              <div class="flex justify-between gap-3">
+                <span class="text-slate-500 font-medium" data-i18n="sumRouteDistance">Route Distance</span>
+                <span id="sum-distance-val" class="font-extrabold text-navy-900 tabular-nums">0.0 km</span>
+              </div>
+              <div id="sum-base-row" class="hidden flex justify-between gap-3">
+                <span class="text-slate-500 font-medium" data-i18n="sumBaseFare">Base Fare</span>
+                <span id="sum-base-val" class="font-bold text-navy-900 tabular-nums">₹300</span>
+              </div>
+              <div class="flex justify-between gap-3">
+                <span class="text-slate-500 font-medium" data-i18n="sumApplicableRate">Applicable Rate</span>
+                <span id="sum-rate-val" class="font-bold text-navy-900 tabular-nums">₹25 / km</span>
+              </div>
+            </div>
+
+            <!-- Prominent Total Fare Display -->
+            <div class="rounded-xl bg-navy-900 text-white p-4 flex items-center justify-between">
+              <div>
+                <div class="text-xs font-extrabold text-amberfleet-400 uppercase tracking-wide" data-i18n="estTotalFareLabel">
+                  Estimated Total Fare
+                </div>
+                <div class="text-[11px] text-slate-300 mt-0.5" data-i18n="estTotalFareSub">
+                  Toll &amp; parking extra at actuals
+                </div>
+              </div>
+              <div id="sum-total-fare" class="font-display text-2xl sm:text-3xl font-extrabold text-white tabular-nums">
+                ₹0
+              </div>
+            </div>
+
+            <!-- Concealed Dual WhatsApp Dispatch Buttons -->
+            <div class="space-y-2.5 pt-1">
+              <button
+                type="button"
+                onclick="dispatchBooking('desk1')"
+                class="w-full py-3.5 px-4 rounded-xl bg-amberfleet-500 hover:bg-amberfleet-600 active:scale-[0.99] text-navy-900 font-display font-extrabold text-sm shadow-sm transition-all flex items-center justify-center gap-2 cursor-pointer">
+                <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M20.52 3.48A11.86 11.86 0 0012.07 0C5.5 0 .16 5.34.16 11.91c0 2.1.55 4.15 1.59 5.95L0 24l6.33-1.66a11.87 11.87 0 005.74 1.46h.01c6.57 0 11.91-5.34 11.91-11.91 0-3.18-1.24-6.17-3.47-8.41zM12.08 21.8h-.01a9.87 9.87 0 01-5.03-1.38l-.36-.21-3.76.99 1-3.66-.24-.38a9.86 9.86 0 01-1.51-5.25c0-5.45 4.44-9.89 9.9-9.89 2.64 0 5.13 1.03 7 2.9a9.82 9.82 0 012.89 7c0 5.46-4.44 9.88-9.88 9.88zm5.43-7.41c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.16-.17.2-.35.22-.64.07-.3-.15-1.26-.46-2.39-1.48-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48 0 1.46 1.07 2.88 1.21 3.07.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.41-.07-.13-.27-.2-.57-.35z"/></svg>
+                <span data-i18n="bookWaDesk1">Book via WhatsApp Desk 1</span>
+              </button>
+
+              <button
+                type="button"
+                onclick="dispatchBooking('desk2')"
+                class="w-full py-3.5 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-500 active:scale-[0.99] text-white font-display font-extrabold text-sm shadow-sm transition-all flex items-center justify-center gap-2 cursor-pointer">
+                <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M20.52 3.48A11.86 11.86 0 0012.07 0C5.5 0 .16 5.34.16 11.91c0 2.1.55 4.15 1.59 5.95L0 24l6.33-1.66a11.87 11.87 0 005.74 1.46h.01c6.57 0 11.91-5.34 11.91-11.91 0-3.18-1.24-6.17-3.47-8.41zM12.08 21.8h-.01a9.87 9.87 0 01-5.03-1.38l-.36-.21-3.76.99 1-3.66-.24-.38a9.86 9.86 0 01-1.51-5.25c0-5.45 4.44-9.89 9.9-9.89 2.64 0 5.13 1.03 7 2.9a9.82 9.82 0 012.89 7c0 5.46-4.44 9.88-9.88 9.88zm5.43-7.41c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.16-.17.2-.35.22-.64.07-.3-.15-1.26-.46-2.39-1.48-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48 0 1.46 1.07 2.88 1.21 3.07.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.41-.07-.13-.27-.2-.57-.35z"/></svg>
+                <span data-i18n="bookWaDesk2">Book via WhatsApp Desk 2</span>
+              </button>
+
+              <button
+                type="button"
+                onclick="openSummaryModal()"
+                class="w-full py-2.5 px-4 rounded-xl bg-white hover:bg-slate-100 text-navy-900 border border-slate-300 font-bold text-xs transition-colors flex items-center justify-center gap-1.5 cursor-pointer">
+                <span>📋</span>
+                <span data-i18n="previewCopyBtn">Preview / Copy Details</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Commercial Footer (No Raw Phone Numbers Displayed) -->
+  <footer class="bg-navy-900 text-slate-300 border-t-4 border-amberfleet-500 mt-12">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="text-center sm:text-left">
+        <div class="font-display font-extrabold text-white text-base tracking-tight">MS TRAVEL &amp; GOODS</div>
+        <div class="text-xs text-amberfleet-400 font-semibold mt-0.5" data-i18n="brandTagline">Safe • Simple • Reliable</div>
+        <div class="text-xs text-slate-400 mt-1" data-i18n="footerCoverage">
+          Tenkasi District &amp; Tamil Nadu • 4-Seater AC Cabs &amp; Commercial Pickup Transport
+        </div>
+      </div>
+      <div class="flex flex-wrap items-center justify-center gap-2.5">
+        <button
+          type="button"
+          onclick="openQuickWhatsApp('desk1')"
+          class="px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition-colors cursor-pointer">
+          <span data-i18n="waDesk1Label">WhatsApp Desk 1</span>
+        </button>
+        <button
+          type="button"
+          onclick="openQuickWhatsApp('desk2')"
+          class="px-4 py-2.5 rounded-xl bg-navy-800 hover:bg-slate-700 text-white text-xs font-bold border border-slate-700 transition-colors cursor-pointer">
+          <span data-i18n="waDesk2Label">WhatsApp Desk 2</span>
+        </button>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Mobile-First Sticky Bottom Booking Summary Bar -->
+  <div class="lg:hidden fixed bottom-0 inset-x-0 z-40 bg-navy-900/95 backdrop-blur-md text-white border-t border-slate-700 px-4 py-2.5 shadow-2xl">
+    <div class="max-w-lg mx-auto flex items-center justify-between gap-3">
+      <div>
+        <div class="text-[10px] font-bold uppercase tracking-wider text-amberfleet-400" data-i18n="estTotalFareLabel">
+          Estimated Total Fare
+        </div>
+        <div class="flex items-baseline gap-2">
+          <span id="mobile-bar-fare" class="font-display text-lg font-extrabold text-white tabular-nums">₹0</span>
+          <span id="mobile-bar-km" class="text-[11px] text-slate-300 font-semibold tabular-nums">0.0 km</span>
+        </div>
+      </div>
+      <div class="flex items-center gap-2">
+        <a
+          href="#checkout-section"
+          class="px-3 py-2 rounded-xl bg-navy-800 hover:bg-slate-700 border border-slate-600 text-xs font-bold text-white">
+          <span data-i18n="detailsScrollBtn">Details</span>
+        </a>
+        <button
+          type="button"
+          onclick="dispatchBooking('desk1')"
+          class="px-3.5 py-2 rounded-xl bg-amberfleet-500 hover:bg-amberfleet-600 text-navy-900 font-display font-extrabold text-xs shadow-sm cursor-pointer">
+          <span data-i18n="mobileBookBtn">Book WhatsApp</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Booking Summary Preview Modal (Zero Raw Numbers Shown) -->
+  <div id="summary-modal" class="hidden fixed inset-0 z-50 bg-navy-950/75 backdrop-blur-xs flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-lg w-full shadow-2xl border border-slate-200 overflow-hidden">
+      <div class="px-5 py-4 bg-navy-900 text-white flex items-center justify-between border-b border-slate-800">
+        <h3 class="font-display font-extrabold text-base text-amberfleet-400" data-i18n="modalHeading">
+          Booking Summary Preview
+        </h3>
+        <button type="button" onclick="closeSummaryModal()" class="text-slate-300 hover:text-white font-bold text-lg px-2 py-0.5 cursor-pointer" aria-label="Close">✕</button>
+      </div>
+      <div class="p-5 space-y-4">
+        <pre id="modal-summary-text" class="whitespace-pre-wrap font-sans text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl p-4 text-navy-900 leading-relaxed max-h-72 overflow-y-auto"></pre>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+          <button
+            type="button"
+            onclick="copySummaryText()"
+            class="py-2.5 px-3 rounded-xl bg-navy-900 hover:bg-navy-800 text-white font-bold text-xs transition-colors cursor-pointer">
+            📋 <span data-i18n="copyBtn">Copy Details</span>
+          </button>
+          <button
+            type="button"
+            onclick="dispatchBooking('desk1')"
+            class="py-2.5 px-3 rounded-xl bg-amberfleet-500 hover:bg-amberfleet-600 text-navy-900 font-extrabold text-xs transition-colors cursor-pointer">
+            <span data-i18n="bookWaDesk1">Book via WhatsApp Desk 1</span>
+          </button>
+          <button
+            type="button"
+            onclick="dispatchBooking('desk2')"
+            class="py-2.5 px-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-xs transition-colors cursor-pointer">
+            <span data-i18n="bookWaDesk2">Book via WhatsApp Desk 2</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Application Script -->
+  <script>
+    // =========================================================================
+    // 1. CONCEALED DISPATCH CHANNELS & FLEET TARIFF DATA
+    // =========================================================================
+    const WHATSAPP_ENDPOINTS = {
+      desk1: '918220802789',
+      desk2: '917339279206'
+    };
+
+    const POPULAR_HUBS = {
+      nagaram: { name: 'Nagaram, Tenkasi District', lat: 9.0485, lng: 77.3592 },
+      tenkasi_bus: { name: 'Tenkasi New Bus Stand, Tenkasi', lat: 8.9590, lng: 77.3152 },
+      courtallam: { name: 'Courtallam Main Falls, Tenkasi', lat: 8.9341, lng: 77.2778 },
+      shenkottai: { name: 'Shenkottai, Tenkasi District', lat: 8.9765, lng: 77.2486 },
+      sankarankovil: { name: 'Sankarankovil, Tenkasi District', lat: 9.1726, lng: 77.5432 },
+      tirunelveli: { name: 'Tirunelveli Junction, Tirunelveli', lat: 8.7294, lng: 77.7118 },
+      madurai_airport: { name: 'Madurai Airport, Madurai', lat: 9.8345, lng: 78.0934 }
+    };
+
+    const TRANSLATIONS = {
+      en: {
+        brandTagline: 'Safe • Simple • Reliable',
+        liveDispatchBadge: '24/7 Dispatch • Tenkasi',
+        headerCta: 'Book Ride',
+        heroBadge: 'Tenkasi District & All Over Tamil Nadu',
+        heroHeadline: 'Executive AC Cab & Commercial Pickup Booking',
+        heroDescription: 'Travel comfortably in a 4-Seater AC Suzuki WagonR or transport goods reliably in a heavy-duty Mahindra Bolero Pickup. Calculate your upfront route fare in seconds and dispatch directly via WhatsApp.',
+        waDesk1Label: 'WhatsApp Desk 1',
+        waDesk2Label: 'WhatsApp Desk 2',
+        trust1Title: 'Clean Well-Maintained Vehicles',
+        trust1Desc: 'Sanitized AC cabs & inspected carriers',
+        trust2Title: 'Verified Local Drivers',
+        trust2Desc: 'Experienced Tenkasi & TN route experts',
+        trust3Title: 'Transparent Upfront Pricing',
+        trust3Desc: 'Clear per-km slabs with zero surprises',
+        trust4Title: '24/7 Tenkasi Support',
+        trust4Desc: 'Fast WhatsApp dispatch around the clock',
+        step1Tag: 'Step 1 • Fleet Selection',
+        step1Heading: 'Choose Your Vehicle Category',
+        tierAppliedLocal: 'Local Tariff Applied',
+        tierAppliedOutstation: 'Outstation Tariff Applied',
+        wagonrBadge: '4-Seater AC • Passenger Travel',
+        wagonrName: 'Suzuki WagonR',
+        localSlabLabel: 'Local (≤ 50 km)',
+        outstationSlabLabel: 'Outstation (> 50 km)',
+        perKmUnit: '/ km',
+        wagonrWaitingNote: 'Waiting: ₹80/hour waiting charge applicable',
+        acComfortTag: 'AC Comfort',
+        boleroBadge: 'Commercial Goods & Luggage',
+        boleroName: 'Mahindra Bolero Pickup',
+        boleroLocalRate: '₹300 Base + ₹30/km',
+        boleroNote: 'Heavy-duty open cargo & shifting',
+        noBaseOutstationTag: 'No base fare outstation',
+        tollFootnote: 'Toll, parking, and interstate permit charges (if any) are extra at actuals.',
+        step2Tag: 'Step 2 • Route & Distance',
+        step2Heading: 'Interactive Route & Fare Calculator',
+        tripOneWay: 'One Way Drop',
+        tripRoundTrip: 'Round Trip',
+        pickupLabel: 'Pickup Location',
+        pickupPlaceholder: 'Search town, bus stand or landmark...',
+        useGpsBtn: 'Use My GPS',
+        mapClickHint: 'Click directly on map to place pins',
+        swapBtn: 'Swap',
+        dropLabel: 'Drop Location',
+        dropPlaceholder: 'Search destination town or landmark...',
+        popularHubsLabel: 'Quick-Select Popular Hubs',
+        setsPickupHint: 'Sets Pickup',
+        setsDropHint: 'Sets Drop',
+        hubNagaram: 'Nagaram',
+        hubTenkasiBus: 'Tenkasi New Bus Stand',
+        hubCourtallam: 'Courtallam Main Falls',
+        hubShenkottai: 'Shenkottai',
+        hubSankarankovil: 'Sankarankovil',
+        hubTirunelveli: 'Tirunelveli',
+        hubMaduraiAirport: 'Madurai Airport',
+        pickupPinBtn: '📍 Pickup Pin',
+        dropPinBtn: '🏁 Drop Pin',
+        setMapCenterBtn: 'Set at Map Center',
+        dragPinNote: 'Drag pins on map to fine-tune exact door-step location',
+        readyStatus: 'Ready',
+        calculatingStatus: 'Calculating road route...',
+        routeReadyStatus: 'Road route calculated',
+        routeApproxStatus: 'Approx. distance estimate (road route unavailable)',
+        step3Tag: 'Step 3 • Dispatch Confirmation',
+        step3Heading: 'Passenger / Goods Details & WhatsApp Booking',
+        custNameLabel: 'Customer Name',
+        custNamePlaceholder: 'Enter your full name',
+        custMobileLabel: '10-Digit Mobile Number',
+        custMobilePlaceholder: 'e.g. 9876543210',
+        travelDateLabel: 'Travel Date',
+        pickupTimeLabel: 'Pickup Time',
+        notesLabel: 'Cargo / Trip Notes',
+        optionalLabel: '(Optional)',
+        notesPlaceholder: 'e.g., 4 passengers with luggage, home shifting items, landmark details...',
+        fareSummaryHeader: 'Fare Summary',
+        sumVehicle: 'Selected Vehicle',
+        sumTripType: 'Trip Type',
+        sumRouteDistance: 'Route Distance',
+        sumBaseFare: 'Base Fare',
+        sumApplicableRate: 'Applicable Rate',
+        estTotalFareLabel: 'Estimated Total Fare',
+        estTotalFareSub: 'Fare uses 2× route distance; toll & parking extra.',
+        bookWaDesk1: 'Book via WhatsApp Desk 1',
+        bookWaDesk2: 'Book via WhatsApp Desk 2',
+        previewCopyBtn: 'Preview / Copy Details',
+        footerCoverage: 'Tenkasi District & Tamil Nadu • 4-Seater AC Cabs & Commercial Pickup Transport',
+        detailsScrollBtn: 'Details',
+        mobileBookBtn: 'Book WhatsApp',
+        modalHeading: 'Booking Summary Preview',
+        copyBtn: 'Copy Details',
+        toastSelectRoute: 'Please select both Pickup and Drop locations first.',
+        toastEnterName: 'Please enter your name.',
+        toastInvalidMobile: 'Please enter a valid 10-digit mobile number.',
+        toastSelectDateTime: 'Please select travel date and pickup time.',
+        toastCopied: 'Booking summary copied to clipboard.',
+        toastGpsSearching: 'Detecting your current GPS location...',
+        toastGpsSuccess: 'Pickup set to your current GPS location.',
+        toastGpsFailed: 'Unable to get GPS location. Please search your town.',
+        toastMapCenterSet: 'Location placed at map center.',
+        waQuickGreeting: 'Hello MS TRAVEL & GOODS, I would like to enquire about a cab / pickup booking.',
+        waTitle: '*MS TRAVEL & GOODS — BOOKING REQUEST*',
+        waVehicle: '*Vehicle:*',
+        waTariff: '*Tariff Slab:*',
+        waTripType: '*Trip Type:*',
+        waPickup: '*Pickup:*',
+        waDrop: '*Drop:*',
+        waDistance: '*Route Distance:*',
+        waTotalFare: '*Estimated Total Fare:*',
+        waName: '*Customer Name:*',
+        waMobile: '*Mobile Number:*',
+        waDateTime: '*Date & Time:*',
+        waNotes: '*Notes:*',
+        waDisclaimer: '_Note: Toll, parking & interstate permit charges (if any) are extra at actuals._'
+      },
+      ta: {
+        brandTagline: 'பாதுகாப்பான • எளிமையான • நம்பகமான பயணம்',
+        liveDispatchBadge: '24/7 சேவை • தென்காசி',
+        headerCta: 'முன்பதிவு',
+        heroBadge: 'தென்காசி மாவட்டம் & தமிழ்நாடு முழுவதும்',
+        heroHeadline: 'நம்பகமான ஏசி கார் & சரக்கு வாகன முன்பதிவு',
+        heroDescription: '4-சீட்டர் ஏசி சுசுகி வேகன்ஆர் கார் அல்லது மஹிந்திரா பொலிரோ பிக்கப் சரக்கு வாகனங்களை வெளிப்படையான கட்டண மதிப்பீட்டுடன் நொடிகளில் கணக்கிட்டு வாட்ஸ்அப் மூலம் முன்பதிவு செய்யுங்கள்.',
+        waDesk1Label: 'வாட்ஸ்அப் டெஸ்க் 1',
+        waDesk2Label: 'வாட்ஸ்அப் டெஸ்க் 2',
+        trust1Title: 'சுத்தமான & பராமரிக்கப்பட்ட வாகனங்கள்',
+        trust1Desc: 'குளிரூட்டப்பட்ட ஏசி கார்கள் & சரக்கு வாகனங்கள்',
+        trust2Title: 'அனுபவம் வாய்ந்த உள்ளூர் ஓட்டுநர்கள்',
+        trust2Desc: 'தென்காசி & தமிழ்நாடு வழித்தட நிபுணர்கள்',
+        trust3Title: 'வெளிப்படையான கட்டண விவரம்',
+        trust3Desc: 'மறைமுக கட்டணங்கள் இல்லாத நேரடி மதிப்பீடு',
+        trust4Title: '24/7 தென்காசி வாடிக்கையாளர் சேவை',
+        trust4Desc: 'எந்நேரமும் உடனடி வாட்ஸ்அப் உறுதிப்படுத்தல்',
+        step1Tag: 'படி 1 • வாகனத் தேர்வு',
+        step1Heading: 'உங்கள் வாகன வகையைத் தேர்ந்தெடுக்கவும்',
+        tierAppliedLocal: 'உள்ளூர் கட்டணம் (Local Tariff)',
+        tierAppliedOutstation: 'வெளியூர் கட்டணம் (Outstation Tariff)',
+        wagonrBadge: '4-சீட்டர் ஏசி • பயணிகள் பயணம்',
+        wagonrName: 'சுசுகி வேகன்ஆர் (Suzuki WagonR)',
+        localSlabLabel: 'உள்ளூர் (≤ 50 கி.மீ)',
+        outstationSlabLabel: 'வெளியூர் (> 50 கி.மீ)',
+        perKmUnit: '/ கி.மீ',
+        wagonrWaitingNote: 'காத்திருப்பு கட்டணம்: மணிக்கு ₹80 பொருந்தும்',
+        acComfortTag: 'ஏசி வசதி',
+        boleroBadge: 'சரக்கு போக்குவரத்து & லக்கேஜ்',
+        boleroName: 'மஹிந்திரா பொலிரோ பிக்கப்',
+        boleroLocalRate: '₹300 அடிப்படை + ₹30/கி.மீ',
+        boleroNote: 'அதிக பாரம் & வீட்டுப் பொருட்கள் மாற்றம்',
+        noBaseOutstationTag: 'வெளியூருக்கு அடிப்படை கட்டணம் இல்லை',
+        tollFootnote: 'சுங்கச்சாவடி (Toll), பார்க்கிங் மற்றும் மாநில அனுமதி கட்டணங்கள் (ஏதேனும் இருந்தால்) தனியாக வசூலிக்கப்படும்.',
+        step2Tag: 'படி 2 • வழித்தடம் & தூரம்',
+        step2Heading: 'வழித்தடம் & கட்டணக் கணிப்பான்',
+        tripOneWay: 'ஒரு வழி பயணம்',
+        tripRoundTrip: 'இரு வழி பயணம்',
+        pickupLabel: 'புறப்படும் இடம் (Pickup)',
+        pickupPlaceholder: 'ஊர், பேருந்து நிலையம் அல்லது அடையாளத்தைத் தேடுக...',
+        useGpsBtn: 'என் ஜிபிஎஸ்',
+        mapClickHint: 'வரைபடத்தில் நேரடியாகத் தொட்டும் பின் வைக்கலாம்',
+        swapBtn: 'மாற்றுக',
+        dropLabel: 'சேரும் இடம் (Drop)',
+        dropPlaceholder: 'சேரும் ஊர் அல்லது இடத்தைத் தேடுக...',
+        popularHubsLabel: 'முக்கிய இடங்கள் (விரைவுத் தேர்வு)',
+        setsPickupHint: 'புறப்படும் இடம்',
+        setsDropHint: 'சேரும் இடம்',
+        hubNagaram: 'நகரம்',
+        hubTenkasiBus: 'தென்காசி புதிய பேருந்து நிலையம்',
+        hubCourtallam: 'குற்றாலம் மெயின் அருவி',
+        hubShenkottai: 'செங்கோட்டை',
+        hubSankarankovil: 'சங்கரன்கோவில்',
+        hubTirunelveli: 'திருநெல்வேலி',
+        hubMaduraiAirport: 'மதுரை விமான நிலையம்',
+        pickupPinBtn: '📍 புறப்படும் பின்',
+        dropPinBtn: '🏁 சேரும் பின்',
+        setMapCenterBtn: 'வரைபட மையத்தில் வை',
+        dragPinNote: 'துல்லியமான இடத்திற்கு வரைபடத்தில் பின்களை நகர்த்தலாம்',
+        readyStatus: 'தயார்',
+        calculatingStatus: 'சாலை வழித்தடம் கணக்கிடப்படுகிறது...',
+        routeReadyStatus: 'சாலை வழித்தடம் கணக்கிடப்பட்டது',
+        routeApproxStatus: 'தோராயமான தூர மதிப்பீடு (சாலை வழித்தடம் கிடைக்கவில்லை)',
+        step3Tag: 'படி 3 • முன்பதிவு உறுதிப்படுத்தல்',
+        step3Heading: 'பயணிகள் / சரக்கு விவரங்கள் & வாட்ஸ்அப் முன்பதிவு',
+        custNameLabel: 'வாடிக்கையாளர் பெயர்',
+        custNamePlaceholder: 'உங்கள் முழுப் பெயரை உள்ளிடவும்',
+        custMobileLabel: '10-இலக்க மொபைல் எண்',
+        custMobilePlaceholder: 'எ.கா. 9876543210',
+        travelDateLabel: 'பயணத் தேதி',
+        pickupTimeLabel: 'புறப்படும் நேரம்',
+        notesLabel: 'சரக்கு / பயணக் குறிப்புகள்',
+        optionalLabel: '(விருப்பத்திற்குரியது)',
+        notesPlaceholder: 'எ.கா. பயணிகள் எண்ணிக்கை, வீட்டு சாமான்கள் அல்லது அடையாள இடம்...',
+        fareSummaryHeader: 'கட்டணச் சுருக்கம்',
+        sumVehicle: 'தேர்ந்தெடுத்த வாகனம்',
+        sumTripType: 'பயண வகை',
+        sumRouteDistance: 'வழித்தட தூரம்',
+        sumBaseFare: 'அடிப்படை கட்டணம்',
+        sumApplicableRate: 'பொருந்தும் கட்டண விகிதம்',
+        estTotalFareLabel: 'மதிப்பிடப்பட்ட மொத்த கட்டணம்',
+        estTotalFareSub: 'கட்டணம் 2× வழித்தூரத்தில் கணக்கிடப்படும்; டோல் & பார்க்கிங் தனி.',
+        bookWaDesk1: 'வாட்ஸ்அப் டெஸ்க் 1 மூலம் முன்பதிவு',
+        bookWaDesk2: 'வாட்ஸ்அப் டெஸ்க் 2 மூலம் முன்பதிவு',
+        previewCopyBtn: 'விவரங்களைப் பார் / நகலெடு',
+        footerCoverage: 'தென்காசி மாவட்டம் & தமிழ்நாடு • 4-சீட்டர் ஏசி கார் & சரக்கு வாகன போக்குவரத்து',
+        detailsScrollBtn: 'விவரங்கள்',
+        mobileBookBtn: 'வாட்ஸ்அப் பதிவு',
+        modalHeading: 'முன்பதிவு விவரங்கள் முன்னோட்டம்',
+        copyBtn: 'நகலெடு',
+        toastSelectRoute: 'முதலில் புறப்படும் மற்றும் சேரும் இடங்களைத் தேர்ந்தெடுக்கவும்.',
+        toastEnterName: 'உங்கள் பெயரை உள்ளிடவும்.',
+        toastInvalidMobile: 'சரியான 10-இலக்க மொபைல் எண்ணை உள்ளிடவும்.',
+        toastSelectDateTime: 'பயணத் தேதி மற்றும் நேரத்தைத் தேர்ந்தெடுக்கவும்.',
+        toastCopied: 'முன்பதிவு விவரங்கள் நகலெடுக்கப்பட்டன.',
+        toastGpsSearching: 'உங்கள் ஜிபிஎஸ் இருப்பிடம் கண்டறியப்படுகிறது...',
+        toastGpsSuccess: 'உங்கள் தற்போதைய இருப்பிடம் தேர்ந்தெடுக்கப்பட்டது.',
+        toastGpsFailed: 'ஜிபிஎஸ் இருப்பிடத்தைப் பெற முடியவில்லை. ஊரின் பெயரைத் தேடவும்.',
+        toastMapCenterSet: 'வரைபட மையம் தேர்ந்தெடுக்கப்பட்டது.',
+        waQuickGreeting: 'வணக்கம் MS TRAVEL & GOODS, கார் / சரக்கு வாகன முன்பதிவு குறித்து விசாரிக்க விரும்புகிறேன்.',
+        waTitle: '*MS TRAVEL & GOODS — புதிய முன்பதிவு*',
+        waVehicle: '*வாகனம்:*',
+        waTariff: '*கட்டண பிரிவு:*',
+        waTripType: '*பயண வகை:*',
+        waPickup: '*புறப்படும் இடம்:*',
+        waDrop: '*சேரும் இடம்:*',
+        waDistance: '*வழித்தட தூரம்:*',
+        waTotalFare: '*மதிப்பிடப்பட்ட மொத்த கட்டணம்:*',
+        waName: '*வாடிக்கையாளர் பெயர்:*',
+        waMobile: '*மொபைல் எண்:*',
+        waDateTime: '*தேதி & நேரம்:*',
+        waNotes: '*குறிப்புகள்:*',
+        waDisclaimer: '_குறிப்பு: சுங்கச்சாவடி (Toll), பார்க்கிங் மற்றும் மாநில அனுமதி கட்டணங்கள் தனி._'
+      }
+    };
+
+    // Application State
+    const appState = {
+      lang: 'en',
+      vehicle: 'wagonr',     // 'wagonr' | 'bolero'
+      tripType: 'oneway',    // 'oneway' | 'roundtrip'
+      tariffTier: 'local',   // 'local' (<= 50 km) | 'outstation' (> 50 km)
+      oneWayKm: 0,
+      pickup: null,
+      drop: null,
+      pinMode: 'pickup'      // 'pickup' | 'drop'
+    };
+
+    let mapInstance = null;
+    let pickupMarker = null;
+    let dropMarker = null;
+    let routeLine = null;
+    let debounceTimers = { pickup: null, drop: null };
+
+    // =========================================================================
+    // 2. INITIALIZATION
+    // =========================================================================
+    window.addEventListener('DOMContentLoaded', () => {
+      setDefaultDateTime();
+      initializeLeafletMap();
+      bindAutocomplete('pickup');
+      bindAutocomplete('drop');
+      updateUI();
+    });
+
+    function tr(key) {
+      return (TRANSLATIONS[appState.lang] && TRANSLATIONS[appState.lang][key]) || TRANSLATIONS.en[key] || key;
+    }
+
+    function setLanguage(lang) {
+      appState.lang = lang;
+      document.documentElement.lang = lang;
+
+      const enBtn = document.getElementById('lang-en-btn');
+      const taBtn = document.getElementById('lang-ta-btn');
+      if (lang === 'en') {
+        enBtn.className = 'px-3 py-1.5 rounded-full text-xs font-extrabold transition-all cursor-pointer bg-amberfleet-500 text-navy-900 shadow-xs';
+        taBtn.className = 'px-3 py-1.5 rounded-full text-xs font-extrabold transition-all cursor-pointer text-slate-300 hover:text-white';
+      } else {
+        taBtn.className = 'px-3 py-1.5 rounded-full text-xs font-extrabold transition-all cursor-pointer bg-amberfleet-500 text-navy-900 shadow-xs';
+        enBtn.className = 'px-3 py-1.5 rounded-full text-xs font-extrabold transition-all cursor-pointer text-slate-300 hover:text-white';
+      }
+
+      document.querySelectorAll('[data-i18n]').forEach((el) => {
+        el.textContent = tr(el.getAttribute('data-i18n'));
+      });
+      document.querySelectorAll('[data-i18n-placeholder]').forEach((el) => {
+        el.setAttribute('placeholder', tr(el.getAttribute('data-i18n-placeholder')));
+      });
+
+      updateUI();
+    }
+
+    function setDefaultDateTime() {
+      const dateEl = document.getElementById('travel-date');
+      const timeEl = document.getElementById('pickup-time');
+      const now = new Date();
+      const yyyy = now.getFullYear();
+      const mm = String(now.getMonth() + 1).padStart(2, '0');
+      const dd = String(now.getDate()).padStart(2, '0');
+      dateEl.value = `${yyyy}-${mm}-${dd}`;
+      dateEl.min = `${yyyy}-${mm}-${dd}`;
+
+      const nextHour = new Date(now.getTime() + 60 * 60 * 1000);
+      const hh = String(nextHour.getHours()).padStart(2, '0');
+      const mins = String(Math.floor(nextHour.getMinutes() / 15) * 15).padStart(2, '0');
+      timeEl.value = `${hh}:${mins}`;
+    }
+
+    // =========================================================================
+    // 3. VEHICLE, TRIP TYPE & TARIFF CALCULATION (SILENT 2x DISTANCE)
+    // =========================================================================
+    function selectVehicle(vehicle) {
+      appState.vehicle = vehicle;
+
+      const wagonrCard = document.getElementById('fleet-card-wagonr');
+      const boleroCard = document.getElementById('fleet-card-bolero');
+      const checkWagonr = document.getElementById('check-wagonr');
+      const checkBolero = document.getElementById('check-bolero');
+
+      if (vehicle === 'wagonr') {
+        wagonrCard.className = 'text-left rounded-2xl border-2 border-amberfleet-500 bg-amberfleet-50/40 p-5 sm:p-6 transition-all cursor-pointer shadow-sm focus:outline-none';
+        checkWagonr.className = 'w-6 h-6 rounded-full bg-amberfleet-500 text-navy-900 flex items-center justify-center text-xs font-black shrink-0';
+
+        boleroCard.className = 'text-left rounded-2xl border-2 border-slate-200 bg-white hover:border-amberfleet-400 p-5 sm:p-6 transition-all cursor-pointer focus:outline-none';
+        checkBolero.className = 'w-6 h-6 rounded-full border-2 border-slate-300 text-transparent flex items-center justify-center text-xs font-black shrink-0';
+      } else {
+        boleroCard.className = 'text-left rounded-2xl border-2 border-amberfleet-500 bg-amberfleet-50/40 p-5 sm:p-6 transition-all cursor-pointer shadow-sm focus:outline-none';
+        checkBolero.className = 'w-6 h-6 rounded-full bg-amberfleet-500 text-navy-900 flex items-center justify-center text-xs font-black shrink-0';
+
+        wagonrCard.className = 'text-left rounded-2xl border-2 border-slate-200 bg-white hover:border-amberfleet-400 p-5 sm:p-6 transition-all cursor-pointer focus:outline-none';
+        checkWagonr.className = 'w-6 h-6 rounded-full border-2 border-slate-300 text-transparent flex items-center justify-center text-xs font-black shrink-0';
+      }
+
+      updateUI();
+    }
+
+    function setTripType(type) {
+      appState.tripType = type;
+      const oneWayBtn = document.getElementById('trip-oneway-btn');
+      const roundTripBtn = document.getElementById('trip-roundtrip-btn');
+
+      if (type === 'oneway') {
+        oneWayBtn.className = 'px-3.5 py-2 rounded-lg text-xs font-extrabold transition-all cursor-pointer bg-navy-900 text-white shadow-2xs';
+        roundTripBtn.className = 'px-3.5 py-2 rounded-lg text-xs font-extrabold transition-all cursor-pointer text-slate-700 hover:text-navy-900';
+      } else {
+        roundTripBtn.className = 'px-3.5 py-2 rounded-lg text-xs font-extrabold transition-all cursor-pointer bg-navy-900 text-white shadow-2xs';
+        oneWayBtn.className = 'px-3.5 py-2 rounded-lg text-xs font-extrabold transition-all cursor-pointer text-slate-700 hover:text-navy-900';
+      }
+
+      updateUI();
+    }
+
+    function computeFareDetails() {
+      const routeKm = appState.oneWayKm > 0 ? Number(appState.oneWayKm.toFixed(1)) : 0;
+
+      // Automatic Tariff Tier Detection based on one-way route distance (> 50 km = Outstation)
+      appState.tariffTier = routeKm > 50 ? 'outstation' : 'local';
+
+      let baseFare = 0;
+      let ratePerKm = 0;
+
+      if (appState.vehicle === 'wagonr') {
+        baseFare = 0;
+        ratePerKm = appState.tariffTier === 'local' ? 25 : 15;
+      } else {
+        // Mahindra Bolero Pickup
+        if (appState.tariffTier === 'local') {
+          baseFare = 300;
+          ratePerKm = 30;
+        } else {
+          baseFare = 0;
+          ratePerKm = 20;
+        }
+      }
+
+      // Business pricing policy: charge 2x the one-way route distance for BOTH One Way Drop and Round Trip.
+      const chargeableDistance = routeKm > 0 ? 2 * routeKm : 0;
+      const totalFare = routeKm > 0 ? Math.round(baseFare + chargeableDistance * ratePerKm) : 0;
+
+      return {
+        routeKm,
+        baseFare,
+        ratePerKm,
+        totalFare
+      };
+    }
+
+    function updateUI() {
+      const { routeKm, baseFare, ratePerKm, totalFare } = computeFareDetails();
+
+      const tierText = appState.tariffTier === 'local' ? tr('tierAppliedLocal') : tr('tierAppliedOutstation');
+      document.getElementById('active-tier-banner-text').textContent = tierText;
+      document.getElementById('summary-tariff-badge').textContent = tierText;
+
+      document.getElementById('sum-vehicle-val').textContent =
+        appState.vehicle === 'wagonr' ? tr('wagonrName') : tr('boleroName');
+      document.getElementById('sum-triptype-val').textContent =
+        appState.tripType === 'oneway' ? tr('tripOneWay') : tr('tripRoundTrip');
+      document.getElementById('sum-distance-val').textContent = `${routeKm.toFixed(1)} km`;
+
+      const baseRow = document.getElementById('sum-base-row');
+      if (baseFare > 0) {
+        baseRow.classList.remove('hidden');
+        document.getElementById('sum-base-val').textContent = `₹${baseFare.toLocaleString('en-IN')}`;
+      } else {
+        baseRow.classList.add('hidden');
+      }
+
+      document.getElementById('sum-rate-val').textContent = `₹${ratePerKm} ${tr('perKmUnit')}`;
+      const formattedTotal = `₹${totalFare.toLocaleString('en-IN')}`;
+      document.getElementById('sum-total-fare').textContent = formattedTotal;
+
+      // Mobile sticky bottom bar sync
+      document.getElementById('mobile-bar-fare').textContent = formattedTotal;
+      document.getElementById('mobile-bar-km').textContent = `${routeKm.toFixed(1)} km`;
+
+      // Update hub target indicator
+      document.getElementById('hub-target-indicator').textContent =
+        appState.pinMode === 'pickup' ? tr('setsPickupHint') : tr('setsDropHint');
+    }
+
+    // =========================================================================
+    // 4. INTERACTIVE LEAFLET MAP, NOMINATIM SEARCH & OSRM ROUTING
+    // =========================================================================
+    function initializeLeafletMap() {
+      // Centered on Tenkasi / Nagaram (8.9590, 77.3152)
+      mapInstance = L.map('map', {
+        center: [8.9590, 77.3152],
+        zoom: 12,
+        zoomControl: true
+      });
+
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '&copy; OpenStreetMap'
+      }).addTo(mapInstance);
+
+      mapInstance.on('click', async (e) => {
+        const { lat, lng } = e.latlng;
+        const label = await reverseLookup(lat, lng);
+        if (appState.pinMode === 'pickup') {
+          assignLocation('pickup', { name: label, lat, lng }, true);
+          if (!appState.drop) setPinPlacementMode('drop');
+        } else {
+          assignLocation('drop', { name: label, lat, lng }, true);
+        }
+      });
+    }
+
+    function createPinIcon(kind) {
+      const isPickup = kind === 'pickup';
+      const bg = isPickup ? '#F59E0B' : '#111827';
+      const fg = isPickup ? '#111827' : '#FFFFFF';
+      const letter = isPickup ? 'P' : 'D';
+      return L.divIcon({
+        className: '',
+        html: `<div class="fleet-pin" style="background:${bg};color:${fg};">${letter}</div>`,
+        iconSize: [34, 34],
+        iconAnchor: [17, 17]
+      });
+    }
+
+    function setPinPlacementMode(mode) {
+      appState.pinMode = mode;
+      const pBtn = document.getElementById('mode-pickup-btn');
+      const dBtn = document.getElementById('mode-drop-btn');
+
+      if (mode === 'pickup') {
+        pBtn.className = 'px-3 py-1.5 rounded-md text-xs font-extrabold transition-colors cursor-pointer bg-amberfleet-500 text-navy-900';
+        dBtn.className = 'px-3 py-1.5 rounded-md text-xs font-extrabold transition-colors cursor-pointer text-slate-600 hover:text-navy-900';
+      } else {
+        dBtn.className = 'px-3 py-1.5 rounded-md text-xs font-extrabold transition-colors cursor-pointer bg-navy-900 text-white';
+        pBtn.className = 'px-3 py-1.5 rounded-md text-xs font-extrabold transition-colors cursor-pointer text-slate-600 hover:text-navy-900';
+      }
+      updateUI();
+    }
+
+    function assignLocation(kind, point, runRoute = true) {
+      appState[kind] = point;
+      const input = document.getElementById(`${kind}-input`);
+      const clearBtn = document.getElementById(`clear-${kind}-btn`);
+      input.value = point ? point.name : '';
+      clearBtn.classList.toggle('hidden', !point);
+
+      if (kind === 'pickup') {
+        if (pickupMarker) {
+          mapInstance.removeLayer(pickupMarker);
+          pickupMarker = null;
+        }
+        if (point) {
+          pickupMarker = L.marker([point.lat, point.lng], {
+            icon: createPinIcon('pickup'),
+            draggable: true
+          }).addTo(mapInstance);
+          pickupMarker.on('dragend', async (ev) => {
+            const pos = ev.target.getLatLng();
+            const label = await reverseLookup(pos.lat, pos.lng);
+            assignLocation('pickup', { name: label, lat: pos.lat, lng: pos.lng }, true);
+          });
+        }
+      } else {
+        if (dropMarker) {
+          mapInstance.removeLayer(dropMarker);
+          dropMarker = null;
+        }
+        if (point) {
+          dropMarker = L.marker([point.lat, point.lng], {
+            icon: createPinIcon('drop'),
+            draggable: true
+          }).addTo(mapInstance);
+          dropMarker.on('dragend', async (ev) => {
+            const pos = ev.target.getLatLng();
+            const label = await reverseLookup(pos.lat, pos.lng);
+            assignLocation('drop', { name: label, lat: pos.lat, lng: pos.lng }, true);
+          });
+        }
+      }
+
+      if (runRoute) {
+        computeRoadRoute();
+      }
+    }
+
+    function clearPoint(kind) {
+      assignLocation(kind, null, false);
+      if (routeLine) {
+        mapInstance.removeLayer(routeLine);
+        routeLine = null;
+      }
+      appState.oneWayKm = 0;
+      document.getElementById('routing-status-label').textContent = tr('readyStatus');
+      updateUI();
+    }
+
+    function swapPoints() {
+      const oldPickup = appState.pickup;
+      const oldDrop = appState.drop;
+      assignLocation('pickup', oldDrop, false);
+      assignLocation('drop', oldPickup, true);
+    }
+
+    function selectPopularHub(hubKey) {
+      const hub = POPULAR_HUBS[hubKey];
+      if (!hub) return;
+      if (appState.pinMode === 'pickup') {
+        assignLocation('pickup', { ...hub }, true);
+        if (!appState.drop) setPinPlacementMode('drop');
+      } else {
+        assignLocation('drop', { ...hub }, true);
+      }
+    }
+
+    async function setPinAtMapCenter() {
+      const center = mapInstance.getCenter();
+      showToast(tr('toastMapCenterSet'));
+      const label = await reverseLookup(center.lat, center.lng);
+      assignLocation(appState.pinMode, { name: label, lat: center.lat, lng: center.lng }, true);
+    }
+
+    function detectUserGPS() {
+      if (!navigator.geolocation) {
+        showToast(tr('toastGpsFailed'), 'error');
+        return;
+      }
+      showToast(tr('toastGpsSearching'));
+      navigator.geolocation.getCurrentPosition(
+        async (pos) => {
+          const lat = pos.coords.latitude;
+          const lng = pos.coords.longitude;
+          mapInstance.setView([lat, lng], 15);
+          const label = await reverseLookup(lat, lng);
+          assignLocation('pickup', { name: label, lat, lng }, true);
+          if (!appState.drop) setPinPlacementMode('drop');
+          showToast(tr('toastGpsSuccess'));
+        },
+        () => {
+          showToast(tr('toastGpsFailed'), 'error');
+        },
+        { enableHighAccuracy: true, timeout: 8000 }
+      );
+    }
+
+    async function computeRoadRoute() {
+      if (routeLine) {
+        mapInstance.removeLayer(routeLine);
+        routeLine = null;
+      }
+
+      if (!appState.pickup && !appState.drop) {
+        appState.oneWayKm = 0;
+        updateUI();
+        return;
+      }
+
+      if (appState.pickup && !appState.drop) {
+        mapInstance.setView([appState.pickup.lat, appState.pickup.lng], 14);
+        appState.oneWayKm = 0;
+        updateUI();
+        return;
+      }
+
+      if (!appState.pickup && appState.drop) {
+        mapInstance.setView([appState.drop.lat, appState.drop.lng], 14);
+        appState.oneWayKm = 0;
+        updateUI();
+        return;
+      }
+
+      const statusEl = document.getElementById('routing-status-label');
+      statusEl.textContent = tr('calculatingStatus');
+
+      const bounds = L.latLngBounds([
+        [appState.pickup.lat, appState.pickup.lng],
+        [appState.drop.lat, appState.drop.lng]
+      ]);
+      mapInstance.fitBounds(bounds, { padding: [45, 45] });
+
+      try {
+        const controller = new AbortController();
+        const timer = setTimeout(() => controller.abort(), 6500);
+        const url = `https://router.project-osrm.org/route/v1/driving/${appState.pickup.lng},${appState.pickup.lat};${appState.drop.lng},${appState.drop.lat}?overview=full&geometries=geojson`;
+        const res = await fetch(url, { signal: controller.signal });
+        clearTimeout(timer);
+
+        if (!res.ok) throw new Error('OSRM response error');
+        const json = await res.json();
+        if (!json.routes || !json.routes.length) throw new Error('No route found');
+
+        const route = json.routes[0];
+        const roadKm = Math.max(1, Number((route.distance / 1000).toFixed(1)));
+        appState.oneWayKm = roadKm;
+
+        const latLngs = route.geometry.coordinates.map(([lng, lat]) => [lat, lng]);
+        routeLine = L.polyline(latLngs, {
+          color: '#D97706',
+          weight: 5,
+          opacity: 0.92
+        }).addTo(mapInstance);
+        mapInstance.fitBounds(routeLine.getBounds(), { padding: [45, 45] });
+
+        statusEl.textContent = tr('routeReadyStatus');
+        updateUI();
+      } catch (err) {
+        // Clean fallback: straight-line * 1.25 road factor
+        const directKm = haversineDistance(
+          appState.pickup.lat,
+          appState.pickup.lng,
+          appState.drop.lat,
+          appState.drop.lng
+        );
+        const fallbackKm = Math.max(1, Number((directKm * 1.25).toFixed(1)));
+        appState.oneWayKm = fallbackKm;
+
+        routeLine = L.polyline(
+          [
+            [appState.pickup.lat, appState.pickup.lng],
+            [appState.drop.lat, appState.drop.lng]
+          ],
+          { color: '#1E293B', weight: 4, dashArray: '8, 8', opacity: 0.85 }
+        ).addTo(mapInstance);
+
+        statusEl.textContent = tr('routeApproxStatus');
+        updateUI();
+      }
+    }
+
+    function haversineDistance(lat1, lon1, lat2, lon2) {
+      const rad = (deg) => (deg * Math.PI) / 180;
+      const R = 6371;
+      const dLat = rad(lat2 - lat1);
+      const dLon = rad(lon2 - lon1);
+      const a =
+        Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+        Math.cos(rad(lat1)) * Math.cos(rad(lat2)) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
+      return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    }
+
+    // =========================================================================
+    // 5. NOMINATIM AUTOCOMPLETE & REVERSE GEOCODING
+    // =========================================================================
+    function bindAutocomplete(kind) {
+      const input = document.getElementById(`${kind}-input`);
+      const dropdown = document.getElementById(`${kind}-dropdown`);
+
+      input.addEventListener('input', () => {
+        const q = input.value.trim();
+        document.getElementById(`clear-${kind}-btn`).classList.toggle('hidden', !q);
+
+        clearTimeout(debounceTimers[kind]);
+        if (q.length < 2) {
+          dropdown.classList.add('hidden');
+          return;
+        }
+
+        debounceTimers[kind] = setTimeout(async () => {
+          try {
+            const url = `https://nominatim.openstreetmap.org/search?format=json&countrycodes=in&viewbox=76.5,11.5,80.3,8.0&bounded=0&limit=6&q=${encodeURIComponent(q + ', Tamil Nadu')}`;
+            const res = await fetch(url, { headers: { 'Accept-Language': 'en' } });
+            const results = await res.json();
+            renderAutocompleteList(kind, results);
+          } catch (e) {
+            dropdown.classList.add('hidden');
+          }
+        }, 350);
+      });
+
+      document.addEventListener('click', (e) => {
+        if (!input.contains(e.target) && !dropdown.contains(e.target)) {
+          dropdown.classList.add('hidden');
+        }
+      });
+    }
+
+    function renderAutocompleteList(kind, items) {
+      const dropdown = document.getElementById(`${kind}-dropdown`);
+      if (!items || !items.length) {
+        dropdown.classList.add('hidden');
+        return;
+      }
+
+      dropdown.innerHTML = items
+        .map((item, i) => {
+          const primary = item.display_name.split(',').slice(0, 3).join(', ');
+          return `
+            <button
+              type="button"
+              data-index="${i}"
+              class="w-full text-left px-4 py-2.5 hover:bg-amberfleet-50 border-b border-slate-100 last:border-none transition-colors cursor-pointer">
+              <div class="text-xs font-extrabold text-navy-900">${escapeHtml(primary)}</div>
+              <div class="text-[11px] text-slate-500 truncate">${escapeHtml(item.display_name)}</div>
+            </button>
+          `;
+        })
+        .join('');
+
+      Array.from(dropdown.querySelectorAll('button')).forEach((btn, i) => {
+        btn.addEventListener('click', () => {
+          const item = items[i];
+          const cleanName = item.display_name.split(',').slice(0, 3).join(', ');
+          assignLocation(
+            kind,
+            {
+              name: cleanName,
+              lat: parseFloat(item.lat),
+              lng: parseFloat(item.lon)
+            },
+            true
+          );
+          dropdown.classList.add('hidden');
+          if (kind === 'pickup' && !appState.drop) setPinPlacementMode('drop');
+        });
+      });
+
+      dropdown.classList.remove('hidden');
+    }
+
+    async function reverseLookup(lat, lng) {
+      try {
+        const url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&zoom=16`;
+        const res = await fetch(url, { headers: { 'Accept-Language': 'en' } });
+        const data = await res.json();
+        if (data && data.display_name) {
+          return data.display_name.split(',').slice(0, 3).join(', ');
+        }
+      } catch (e) {}
+      return `Pinned Location (${lat.toFixed(4)}, ${lng.toFixed(4)})`;
+    }
+
+    // =========================================================================
+    // 6. VALIDATION, PREVIEW MODAL & WHATSAPP DISPATCH
+    // =========================================================================
+    function generateBookingText() {
+      const { routeKm, totalFare } = computeFareDetails();
+      const vehicleName = appState.vehicle === 'wagonr' ? tr('wagonrName') : tr('boleroName');
+      const tariffLabel = appState.tariffTier === 'local' ? tr('tierAppliedLocal') : tr('tierAppliedOutstation');
+      const tripLabel = appState.tripType === 'oneway' ? tr('tripOneWay') : tr('tripRoundTrip');
+      const pickupText = appState.pickup ? appState.pickup.name : '-';
+      const dropText = appState.drop ? appState.drop.name : '-';
+      const custName = document.getElementById('cust-name').value.trim() || '-';
+      const custMobile = document.getElementById('cust-mobile').value.trim() || '-';
+      const dateVal = document.getElementById('travel-date').value || '-';
+      const timeVal = document.getElementById('pickup-time').value || '-';
+      const notesVal = document.getElementById('trip-notes').value.trim();
+
+      const rows = [
+        tr('waTitle'),
+        '----------------------------------------',
+        `${tr('waVehicle')} ${vehicleName}`,
+        `${tr('waTariff')} ${tariffLabel}`,
+        `${tr('waTripType')} ${tripLabel}`,
+        `${tr('waPickup')} ${pickupText}`,
+        `${tr('waDrop')} ${dropText}`,
+        `${tr('waDistance')} ${routeKm.toFixed(1)} km`,
+        `${tr('waTotalFare')} ₹${totalFare.toLocaleString('en-IN')}`,
+        '----------------------------------------',
+        `${tr('waName')} ${custName}`,
+        `${tr('waMobile')} ${custMobile}`,
+        `${tr('waDateTime')} ${dateVal} (${timeVal})`,
+        notesVal ? `${tr('waNotes')} ${notesVal}` : null,
+        '----------------------------------------',
+        tr('waDisclaimer')
+      ].filter(Boolean);
+
+      return rows.join('\n');
+    }
+
+    function validateForm() {
+      if (!appState.pickup || !appState.drop) {
+        showToast(tr('toastSelectRoute'), 'error');
+        document.getElementById('route-section').scrollIntoView({ behavior: 'smooth' });
+        return false;
+      }
+
+      const name = document.getElementById('cust-name').value.trim();
+      if (name.length < 2) {
+        showToast(tr('toastEnterName'), 'error');
+        document.getElementById('cust-name').focus();
+        return false;
+      }
+
+      const mobile = document.getElementById('cust-mobile').value.trim();
+      if (!/^[6-9]\d{9}$/.test(mobile)) {
+        showToast(tr('toastInvalidMobile'), 'error');
+        document.getElementById('cust-mobile').focus();
+        return false;
+      }
+
+      const dateVal = document.getElementById('travel-date').value;
+      const timeVal = document.getElementById('pickup-time').value;
+      if (!dateVal || !timeVal) {
+        showToast(tr('toastSelectDateTime'), 'error');
+        return false;
+      }
+
+      return true;
+    }
+
+    function dispatchBooking(deskKey) {
+      if (!validateForm()) return;
+      const phone = WHATSAPP_ENDPOINTS[deskKey] || WHATSAPP_ENDPOINTS.desk1;
+      const text = generateBookingText();
+      window.open(`https://wa.me/${phone}?text=${encodeURIComponent(text)}`, '_blank', 'noopener,noreferrer');
+    }
+
+    function openQuickWhatsApp(deskKey) {
+      const phone = WHATSAPP_ENDPOINTS[deskKey] || WHATSAPP_ENDPOINTS.desk1;
+      window.open(`https://wa.me/${phone}?text=${encodeURIComponent(tr('waQuickGreeting'))}`, '_blank', 'noopener,noreferrer');
+    }
+
+    function openSummaryModal() {
+      document.getElementById('modal-summary-text').textContent = generateBookingText();
+      document.getElementById('summary-modal').classList.remove('hidden');
+    }
+
+    function closeSummaryModal() {
+      document.getElementById('summary-modal').classList.add('hidden');
+    }
+
+    function copySummaryText() {
+      const text = document.getElementById('modal-summary-text').textContent;
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      try {
+        document.execCommand('copy');
+        showToast(tr('toastCopied'));
+      } catch (e) {
+        showToast('Copy failed', 'error');
+      }
+      document.body.removeChild(ta);
+    }
+
+    // =========================================================================
+    // 7. TOAST & ESCAPE HELPERS
+    // =========================================================================
+    function showToast(msg, type = 'info') {
+      const stack = document.getElementById('toast-stack');
+      const el = document.createElement('div');
+      const style =
+        type === 'error'
+          ? 'bg-red-600 text-white border-red-700'
+          : 'bg-navy-900 text-white border-slate-700';
+      el.className = `pointer-events-auto rounded-xl border px-4 py-3 text-xs sm:text-sm font-bold shadow-xl transition-all duration-300 ${style}`;
+      el.textContent = msg;
+      stack.appendChild(el);
+
+      setTimeout(() => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(-6px)';
+        setTimeout(() => el.remove(), 300);
+      }, 3400);
+    }
+
+    function escapeHtml(str) {
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+  </script>
+</body>
+</html>
